@@ -1,0 +1,51 @@
+{
+  "customer": {
+    "name": "Moses Kamira",
+    "age": 28,
+    "gender": "MALE",
+    "address": "4P.O.Box 70867, Clock Tower, Kampala, Uganda",
+    "phone": "2567896772",
+    "email": "moses.african@gmail.com",
+    "account": {
+      "account_number": "098765432123",
+      "balance": 1567800.00,
+      "transactions": [
+        {
+          "date": "2022-12-15",
+          "description": "DEPOSIT",
+          "amount": 5000.00
+        },
+        {
+          "date": "2022-01-01",
+          "description": "DEPOSIT",
+          "amount": 3000.00
+        },
+        {
+          "date": "2023-02-01",
+          "description": "WITHDRAW",
+          "amount": 7650.00
+        },
+        {
+          "date": "2022-02-01",
+          "description": "WITHDRAW",
+          "amount": 4250.00
+        },
+        {
+          "date": "2023-02-01",
+          "description": "INTEREST",
+          "amount": 2850.00
+        },
+        {
+          "date": "2023-02-01",
+          "description": "DEPOSIT",
+          "amount": 25500.00
+        },
+        {
+          "date": "2023-02-01",
+          "description": "DEPOSIT",
+          "amount": 45500.00
+        }
+      ]
+    }
+  }
+}

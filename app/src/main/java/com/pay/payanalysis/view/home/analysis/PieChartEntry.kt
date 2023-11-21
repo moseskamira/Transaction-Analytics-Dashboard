@@ -1,4 +1,4 @@
-package com.pay.payanalysis.home.visual
+package com.pay.payanalysis.view.home.analysis
 
 import androidx.compose.ui.graphics.Color
 

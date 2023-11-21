@@ -1,4 +1,4 @@
-package com.pay.payanalysis.home.visual
+package com.pay.payanalysis.view.home.analysis
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
@@ -19,7 +19,7 @@ fun DataPieChart(entries: List<PieChartEntry>) {
                 sweepAngle = entry.percentage * 360f,
                 useCenter = true,
                 topLeft = Offset.Zero,
-                size = this.size
+                size = this.size,
             )
         }
     }

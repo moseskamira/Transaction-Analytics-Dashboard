@@ -8,8 +8,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
-import com.pay.payanalysis.navigation.BottomNavigationBar
-import com.pay.payanalysis.navigation.NavHostContainer
+import com.pay.payanalysis.view.navigation.BottomNavigationBar
+import com.pay.payanalysis.view.navigation.NavHostContainer
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

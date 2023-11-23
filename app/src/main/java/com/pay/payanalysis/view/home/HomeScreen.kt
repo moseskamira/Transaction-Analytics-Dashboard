@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pay.payanalysis.R
 import com.pay.payanalysis.ui.theme.PayAnalysisTheme
+import com.pay.payanalysis.view.reUsable.CustomDivider
 
 @Composable
 fun HomeScreen() {
@@ -38,12 +38,7 @@ fun HomeScreen() {
                     .padding(20.dp),
             ) {
                 WelcomeNameCard()
-                Divider(
-                    thickness = 1.dp,
-                    color = colorResource(id = R.color.blue_200),
-                    modifier = Modifier.padding(bottom = 20.dp)
-
-                )
+                CustomDivider()
                 Text(
                     text = "TRANSACTIONS ANALYTICS DASHBOARD",
                     style = TextStyle(

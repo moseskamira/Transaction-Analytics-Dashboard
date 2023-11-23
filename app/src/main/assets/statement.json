@@ -11,39 +11,305 @@
       "balance": 1567800.00,
       "transactions": [
         {
-          "date": "2022-12-15",
-          "description": "DEPOSIT",
-          "amount": 5000.00
+          "date": "2023-10-01 8:33",
+          "type": "Deposit",
+          "amount": 15700.00,
+          "service": "GOtv",
+          "category": "TV"
         },
         {
-          "date": "2022-01-01",
-          "description": "DEPOSIT",
-          "amount": 3000.00
+          "date": "2023-10-01 8:33",
+          "type": "Deposit",
+          "amount": 2000.00,
+          "service": "MTN Uganda",
+          "category": "Airtime"
         },
         {
-          "date": "2023-02-01",
-          "description": "WITHDRAW",
-          "amount": 7650.00
+          "date": "2023-10-01 8:35",
+          "type": "Deposit",
+          "amount": 1000.00,
+          "service": "Airtel Internet",
+          "category": "Internet"
         },
         {
-          "date": "2022-02-01",
-          "description": "WITHDRAW",
-          "amount": 4250.00
+          "date": "2023-10-01 8:36",
+          "type": "Deposit",
+          "amount": 1500.00,
+          "service": "Lycamobile",
+          "category": "Airtime"
         },
         {
-          "date": "2023-02-01",
-          "description": "INTEREST",
-          "amount": 2850.00
+          "date": "2023-10-01 8:38",
+          "type": "Deposit",
+          "amount": 1000.00,
+          "service": "Airtel Internet",
+          "category": "Internet"
         },
         {
-          "date": "2023-02-01",
-          "description": "DEPOSIT",
-          "amount": 25500.00
+          "date": "2023-10-01 8:40",
+          "type": "Deposit",
+          "amount": 6000.00,
+          "service": "MTN Mobile Money",
+          "category": "Mobile Money"
         },
         {
-          "date": "2023-02-01",
-          "description": "DEPOSIT",
-          "amount": 45500.00
+          "date": "2023-10-01 8:42",
+          "type": "Withdraw",
+          "amount": 40000.00,
+          "service": "MTN Mobile Money",
+          "category": "Mobile Money"
+        },
+        {
+          "date": "2023-10-01 8:43",
+          "type": "Withdraw",
+          "amount": 20000.00,
+          "service": "Airtel Money",
+          "category": "Mobile Money"
+        },
+        {
+          "date": "2023-10-01 8:45",
+          "type": "Withdraw",
+          "amount": 5000.00,
+          "service": "Airtel Money",
+          "category": "Mobile Money"
+        },
+        {
+          "date": "2023-10-01 8:46",
+          "type": "Deposit",
+          "amount": 15000.00,
+          "service": "Lycamobile",
+          "category": "Airtime"
+        },
+        {
+          "date": "2023-10-01 8:47",
+          "type": "Deposit",
+          "amount": 1000.00,
+          "service": "Airtel Internet",
+          "category": "Internet"
+        },
+        {
+          "date": "2023-10-01 8:50",
+          "type": "Deposit",
+          "amount": 1000.00,
+          "service": "MTN Mobile Internet",
+          "category": "Internet"
+        },
+        {
+          "date": "2023-10-01 8:53",
+          "type": "Deposit",
+          "amount": 500.00,
+          "service": "Airtel Internet",
+          "category": "Internet"
+        },
+        {
+          "date": "2023-10-01 8:55",
+          "type": "Deposit",
+          "amount": 10000.00,
+          "service": "UMEME Yaka",
+          "category": "Utilities"
+        },
+        {
+          "date": "2023-10-01 8:56",
+          "type": "Deposit",
+          "amount": 50000.00,
+          "service": "MTN Mobile Money",
+          "category": "Mobile Money"
+        },
+        {
+          "date": "2023-10-01 9:01",
+          "type": "Deposit",
+          "amount": 1200.00,
+          "service": "Airtel Uganda",
+          "category": "Airtime"
+        },
+        {
+          "date": "2023-10-01 9:07",
+          "type": "Deposit",
+          "amount": 1000.00,
+          "service": "Airtel Internet",
+          "category": "Internet"
+        },
+        {
+          "date": "2023-10-01 9:10",
+          "type": "Deposit",
+          "amount": 3000.00,
+          "service": "UMEME Yaka",
+          "category": "Utilities"
+        },
+        {
+          "date": "2023-10-01 9:14",
+          "type": "Deposit",
+          "amount": 2000.00,
+          "service": "Airtel Internet",
+          "category": "Internet"
+        },
+        {
+          "date": "2023-10-01 9:15",
+          "type": "Deposit",
+          "amount": 2000.00,
+          "service": "Airtel Internet",
+          "category": "Internet"
+        },
+        {
+          "date": "2023-10-01 9:16",
+          "type": "Deposit",
+          "amount": 5000.00,
+          "service": "Airtel Money",
+          "category": "Mobile Money"
+        },
+        {
+          "date": "2023-10-01 9:21",
+          "type": "Deposit",
+          "amount": 10000.00,
+          "service": "UMEME Yaka",
+          "category": "Utilities"
+        },
+        {
+          "date": "2023-10-01 9:25",
+          "type": "Deposit",
+          "amount": 1000.00,
+          "service": "MTN Uganda",
+          "category": "Airtime"
+        },
+        {
+          "date": "2023-10-01 9:27",
+          "type": "Deposit",
+          "amount": 1000.00,
+          "service": "UMEME Yaka",
+          "category": "Utilities"
+        },
+        {
+          "date": "2023-10-01 9:30",
+          "type": "Deposit",
+          "amount": 1000.00,
+          "service": "Airtel Uganda",
+          "category": "Airtime"
+        },
+        {
+          "date": "2023-10-01 9:32",
+          "type": "Deposit",
+          "amount": 2000.00,
+          "service": "MTN Mobile Money",
+          "category": "Mobile Money"
+        },
+        {
+          "date": "2023-10-01 9:33",
+          "type": "Deposit",
+          "amount": 9000.00,
+          "service": "UMEME Yaka",
+          "category": "Utilities"
+        },
+        {
+          "date": "2023-10-01 9:35",
+          "type": "Withdraw",
+          "amount": 10000.00,
+          "service": "MTN Mobile Money",
+          "category": "Mobile Money"
+        },
+        {
+          "date": "2023-10-01 9:38",
+          "type": "Deposit",
+          "amount": 90000.00,
+          "service": "National Water",
+          "category": "Utilities"
+        },
+        {
+          "date": "2023-10-01 9:44",
+          "type": "Withdraw",
+          "amount": 12000.00,
+          "service": "MTN Mobile Money",
+          "category": "Mobile Money"
+        },
+        {
+          "date": "2023-10-01 9:47",
+          "type": "Deposit",
+          "amount": 15700.00,
+          "service": "GOtv",
+          "category": "TV"
+        },
+        {
+          "date": "2023-10-01 9:51",
+          "type": "Deposit",
+          "amount": 2000.00,
+          "service": "Airtel Money",
+          "category": "Mobile Money"
+        },
+        {
+          "date": "2023-10-01 9:55",
+          "type": "Deposit",
+          "amount": 10000.00,
+          "service": "UMEME Yaka",
+          "category": "Utilities"
+        },
+        {
+          "date": "2023-10-01 9:57",
+          "type": "Withdraw",
+          "amount": 250000.00,
+          "service": "Airtel Money",
+          "category": "Mobile Money"
+        },
+        {
+          "date": "2023-10-01 9:58",
+          "type": "Deposit",
+          "amount": 1000.00,
+          "service": "Airtel Uganda",
+          "category": "Airtime"
+        },
+        {
+          "date": "2023-10-01 9:59",
+          "type": "Deposit",
+          "amount": 10000.00,
+          "service": "MTN Mobile Money",
+          "category": "Mobile Money"
+        },
+        {
+          "date": "2023-10-01 10:0",
+          "type": "Deposit",
+          "amount": 1000.00,
+          "service": "MTN Mobile Internet",
+          "category": "Internet"
+        },
+        {
+          "date": "2023-10-01 10:0",
+          "type": "Withdraw",
+          "amount": 10000.00,
+          "service": "Airtel Money",
+          "category": "Mobile Money"
+        },
+        {
+          "date": "2023-10-01 10:0",
+          "type": "Withdraw",
+          "amount": 30000.00,
+          "service": "Airtel Money",
+          "category": "Mobile Money"
+        },
+        {
+          "date": "2023-10-01 10:0",
+          "type": "Deposit",
+          "amount": 1000.00,
+          "service": "Airtel Uganda",
+          "category": "Airtime"
+        },
+        {
+          "date": "2023-10-01 10:0",
+          "type": "Deposit",
+          "amount": 1000.00,
+          "service": "Airtel Internet",
+          "category": "Internet"
+        },
+        {
+          "date": "2023-10-01 10:0",
+          "type": "Withdraw",
+          "amount": 290000.00,
+          "service": "MTN Mobile Money",
+          "category": "Mobile Money"
+        },
+        {
+          "date": "2023-10-01 10:1",
+          "type": "Withdraw",
+          "amount": 85000.00,
+          "service": "Airtel Money",
+          "category": "Mobile Money"
         }
       ]
     }

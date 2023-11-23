@@ -1,13 +1,15 @@
-package com.pay.payanalysis.home
+package com.pay.payanalysis.view.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -23,7 +25,6 @@ import com.pay.payanalysis.ui.theme.PayAnalysisTheme
 fun HomeScreen() {
     PayAnalysisTheme {
         Column(
-            horizontalAlignment = CenterHorizontally,
             modifier = Modifier
                 .background(color = colorResource(id = R.color.blue_200))
                 .fillMaxSize()
@@ -35,8 +36,14 @@ fun HomeScreen() {
                     .clip(shape = RoundedCornerShape(topEnd = 40.dp, topStart = 40.dp))
                     .background(color = Color.White)
                     .padding(20.dp),
-                horizontalAlignment = CenterHorizontally
             ) {
+                WelcomeNameCard()
+                Divider(
+                    thickness = 1.dp,
+                    color = colorResource(id = R.color.blue_200),
+                    modifier = Modifier.padding(bottom = 20.dp)
+
+                )
                 Text(
                     text = "TRANSACTIONS ANALYTICS DASHBOARD",
                     style = TextStyle(
@@ -45,6 +52,7 @@ fun HomeScreen() {
                         textAlign = TextAlign.Center
                     )
                 )
+                Spacer(modifier = Modifier.height(20.dp))
                 HomeScreenTabScreen()
 
             }

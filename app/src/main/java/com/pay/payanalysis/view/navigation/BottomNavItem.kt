@@ -1,4 +1,4 @@
-package com.pay.payanalysis.navigation
+package com.pay.payanalysis.view.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox

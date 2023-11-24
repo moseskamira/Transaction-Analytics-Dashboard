@@ -1,4 +1,4 @@
-package com.pay.payanalysis.view.home.transactioRreport
+package com.pay.payanalysis.view.home.reportTab
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -16,6 +16,7 @@ import androidx.compose.material.TextField
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -37,13 +38,12 @@ import androidx.compose.ui.unit.sp
 import com.pay.payanalysis.R
 import com.pay.payanalysis.model.Transactions
 import com.pay.payanalysis.repository.TransactionRepository
-import com.pay.payanalysis.view.home.analytics.StatementSummary
 import com.pay.payanalysis.view.reUsable.CustomDivider
 import com.pay.payanalysis.viewModel.TransactionViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
-fun ReportContainer() {
+fun ReportTabContainer() {
     Column(
         horizontalAlignment = Alignment.Start,
         modifier = Modifier
@@ -68,7 +68,7 @@ fun ReportContainer() {
         var filterType by remember {
             mutableStateOf("")
         }
-        val filterGroupList = mutableListOf("DATE", "TYPE", "AMOUNT", "CATEGORY")
+        val filterGroupList = mutableListOf("TYPE", "AMOUNT", "CATEGORY")
         val myStatement = transactionViewModel.getStatement(LocalContext.current);
         fullTransactionList.addAll(myStatement.customer!!.account!!.transactions)
         for (txn in fullTransactionList) {
@@ -96,20 +96,29 @@ fun ReportContainer() {
             }
 
         }
-        Row {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp),
+
+            ) {
             Text(
-                text = "FILTER GROUP:  ",
+                text = "FILTER:  ",
                 style = TextStyle(
                     color = Color.Black,
                     fontSize = 16.sp
-                )
+                ),
+                modifier = Modifier.weight(1f)
             )
             ExposedDropdownMenuBox(
                 expanded = isGroupExpanded,
                 onExpandedChange = { newValue ->
                     isGroupExpanded = newValue
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(2f)
             ) {
                 TextField(
                     value = filterGroup,
@@ -119,10 +128,18 @@ fun ReportContainer() {
                         ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded)
                     },
                     placeholder = {
-                        Text(text = "Select Filter Group")
+                        Text(text = "Select Filter Group", textAlign = TextAlign.Start)
                     },
-                    colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                    modifier = Modifier.menuAnchor()
+                    colors = ExposedDropdownMenuDefaults.textFieldColors(
+                        textColor = colorResource(id = R.color.black),
+                        disabledTextColor = Color.Transparent,
+                        backgroundColor = Color.White,
+                        disabledIndicatorColor = Color.Transparent,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                    ),
+                    modifier = Modifier.menuAnchor(),
+                    textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Start)
                 )
                 ExposedDropdownMenu(
                     expanded = isGroupExpanded,
@@ -149,39 +166,50 @@ fun ReportContainer() {
             }
 
         }
-        Spacer(modifier = Modifier.height(20.dp))
         Row(
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+                .padding(horizontal = 8.dp),
+
+            ) {
             Text(
                 text = "SUB FILTER:  ",
                 style = TextStyle(
                     color = Color.Black,
                     fontSize = 16.sp
-                )
+                ),
+                modifier = Modifier.weight(1f)
             )
             ExposedDropdownMenuBox(
                 expanded = isExpanded,
                 onExpandedChange = { newValue ->
                     isExpanded = newValue
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(2f)
             ) {
                 TextField(
-                    value = filterType,
+                    value = filterType.uppercase(),
                     onValueChange = {},
                     readOnly = true,
                     trailingIcon = {
                         ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded)
                     },
                     placeholder = {
-                        Text(text = "Select Sub Filter")
+                        Text(text = "Select Sub Filter", textAlign = TextAlign.End)
                     },
-                    colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                    modifier = Modifier.menuAnchor()
+                    colors = ExposedDropdownMenuDefaults.textFieldColors(
+                        textColor = colorResource(id = R.color.black),
+                        disabledTextColor = Color.Transparent,
+                        backgroundColor = Color.White,
+                        disabledIndicatorColor = Color.Transparent,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                    ),
+                    modifier = Modifier.menuAnchor(),
+                    textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Start)
                 )
                 ExposedDropdownMenu(
                     expanded = isExpanded,
@@ -193,19 +221,17 @@ fun ReportContainer() {
                         .clip(shape = RectangleShape)
 
                 ) {
-                    val dates = mutableListOf<String>()
+                    val dropDownList = mutableListOf<String>()
                     fullTransactionList.forEach {
                         if (filterGroup == "CATEGORY") {
-                            dates.add(it.category!!)
+                            dropDownList.add(it.category!!)
                         } else if (filterGroup == "AMOUNT") {
-                            dates.add(it.amount.toString())
+                            dropDownList.add(it.amount.toString())
                         } else if (filterGroup == "TYPE") {
-                            dates.add(it.type!!)
-                        } else {
-                            dates.add(it.date!!)
+                            dropDownList.add(it.type!!)
                         }
                     }
-                    val uniqueDates = dates.toSet().toList()
+                    val uniqueDates = dropDownList.toSet().toList()
                     uniqueDates.forEach { option ->
                         DropdownMenuItem(
                             text = {
@@ -221,9 +247,6 @@ fun ReportContainer() {
             }
 
         }
-        Spacer(modifier = Modifier.height(20.dp))
-        StatementSummary(customer = myStatement.customer!!)
-        Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = "TRANSACTION REPORT AS TO SELECTED FILTER",
             fontSize = 18.sp,
@@ -232,9 +255,32 @@ fun ReportContainer() {
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold
         )
+        Row {
+            var totalAmount = 0.0
+            selectedList.forEach {
+                totalAmount += it.amount!!
+            }
+            Text(
+                text = "Count: (${selectedList.size})",
+                fontSize = 18.sp,
+                modifier = Modifier.padding(vertical = 10.dp),
+                color = colorResource(id = R.color.blue_200),
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            Text(
+                text = "Total: UGX $totalAmount",
+                fontSize = 18.sp,
+                modifier = Modifier.padding(vertical = 10.dp),
+                color = colorResource(id = R.color.blue_200),
+                fontWeight = FontWeight.Bold
+            )
+        }
+
         CustomDivider()
         StatementReport(transList = selectedList)
         Spacer(modifier = Modifier.height(80.dp))
+
     }
 }
 

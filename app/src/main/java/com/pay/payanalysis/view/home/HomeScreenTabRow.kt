@@ -20,7 +20,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import com.pay.payanalysis.view.home.analysis.AnalyticsContainer
+import com.pay.payanalysis.view.home.analytics.AnalyticsContainer
+import com.pay.payanalysis.view.home.transactioRreport.ReportContainer
 
 
 @SuppressLint("SimpleDateFormat", "CoroutineCreationDuringComposition")
@@ -28,7 +29,7 @@ import com.pay.payanalysis.view.home.analysis.AnalyticsContainer
 @Composable
 fun HomeScreenTabScreen() {
     var tabIndex by remember { mutableIntStateOf(0) }
-    val tabs = listOf("Analytics", "Payment", "Transactions")
+    val tabs = listOf("Report", "Analytics", "Transactions")
     val firstName = remember {
         mutableStateOf("")
     }
@@ -45,10 +46,8 @@ fun HomeScreenTabScreen() {
             }
         }
         when (tabIndex) {
-            0 -> AnalyticsContainer()
-            1 -> Column {
-                Text(text = "This is Transaction Section")
-            }
+            1 -> AnalyticsContainer()
+            0 -> ReportContainer()
 
             2 -> Column() {
                 Text(

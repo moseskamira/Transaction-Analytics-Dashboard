@@ -1,4 +1,4 @@
-package com.pay.payanalysis.view.home.analysis
+package com.pay.payanalysis.view.home.analytics
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -54,7 +54,7 @@ fun AnalyticsContainer() {
             mutableStateOf(false)
         }
         var selectedYear by remember {
-            mutableStateOf("2023")
+            mutableStateOf("")
         }
         val myStatement = transactionViewModel.getStatement(LocalContext.current);
         fullTransactionList.addAll(myStatement.customer!!.account!!.transactions)
@@ -67,9 +67,9 @@ fun AnalyticsContainer() {
         for (trans in selectedList) {
             totalTransAmount += (trans.amount!!).toDouble()
         }
-        val sortedList = selectedList.sortedBy { it.description }
+        val sortedList = selectedList.sortedBy { it.type }
         for (tran in sortedList) {
-            if (tran.description == "DEPOSIT") {
+            if (tran.type == "Deposit") {
                 val bgColor: Color = colorResource(id = R.color.blue_200)
                 entries.add(
                     PieChartEntry(
@@ -77,8 +77,8 @@ fun AnalyticsContainer() {
                         ((tran.amount!! / totalTransAmount)).toFloat()
                     )
                 )
-            } else if (tran.description == "INTEREST") {
-                val bgColor: Color = colorResource(id = R.color.teal_200)
+            } else if (tran.type == "Withdraw") {
+                val bgColor: Color = MaterialTheme.colors.primaryVariant
                 entries.add(
                     PieChartEntry(
                         bgColor,
@@ -87,7 +87,7 @@ fun AnalyticsContainer() {
                 )
 
             } else {
-                val bgColor: Color = MaterialTheme.colors.primaryVariant
+                val bgColor: Color = colorResource(id = R.color.teal_200)
                 entries.add(
                     PieChartEntry(
                         bgColor,
@@ -129,33 +129,22 @@ fun AnalyticsContainer() {
                         .clip(shape = RectangleShape)
 
                 ) {
-                    DropdownMenuItem(
-                        text = {
-                            Text(text = "2023")
-                        },
-                        onClick = {
-                            selectedYear = "2023"
-                            isExpanded = false
-                        }
-                    )
-                    DropdownMenuItem(
-                        text = {
-                            Text(text = "2022")
-                        },
-                        onClick = {
-                            selectedYear = "2022"
-                            isExpanded = false
-                        }
-                    )
-                    DropdownMenuItem(
-                        text = {
-                            Text(text = "2021")
-                        },
-                        onClick = {
-                            selectedYear = "2021"
-                            isExpanded = false
-                        }
-                    )
+                    val dates = mutableListOf<String>()
+                    fullTransactionList.forEach {
+                        dates.add(it.date!!.substring(0, 4))
+                    }
+                    val uniqueDates = dates.toSet().toList()
+                    uniqueDates.forEach { option ->
+                        DropdownMenuItem(
+                            text = {
+                                Text(text = option)
+                            },
+                            onClick = {
+                                selectedYear = option
+                                isExpanded = false
+                            }
+                        )
+                    }
                 }
             }
         }

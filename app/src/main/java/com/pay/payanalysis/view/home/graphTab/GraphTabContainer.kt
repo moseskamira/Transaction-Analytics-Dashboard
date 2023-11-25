@@ -1,5 +1,6 @@
-package com.pay.payanalysis.view.home.graph
+package com.pay.payanalysis.view.home.graphTab
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -41,7 +42,10 @@ import com.pay.payanalysis.repository.TransactionRepository
 import com.pay.payanalysis.view.reUsable.CustomDivider
 import com.pay.payanalysis.viewModel.TransactionViewModel
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
+@OptIn(
+    ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class,
+    ExperimentalAnimationApi::class
+)
 @Composable
 fun GraphTabContainer() {
     Column(
@@ -62,10 +66,13 @@ fun GraphTabContainer() {
         var selectedCategory by remember {
             mutableStateOf("")
         }
+        var showChart by remember {
+            mutableStateOf(true)
+        }
         val myStatement = transactionViewModel.getStatement(LocalContext.current)
         fullTransactionList.addAll(myStatement.customer!!.account!!.transactions)
         for (txn in fullTransactionList) {
-            if (txn.category!!.contains(selectedCategory)) {
+            if (txn.type!!.contains(selectedCategory)) {
                 selectedList.add(txn)
             }
         }
@@ -73,10 +80,10 @@ fun GraphTabContainer() {
         for (trans in selectedList) {
             totalTransAmount += (trans.amount!!).toDouble()
         }
-        val sortedList = selectedList.sortedBy { it.type }
+        val sortedList = selectedList.sortedBy { it.category }
         for (tran in sortedList) {
-            when (tran.type) {
-                "Deposit" -> {
+            when (tran.category) {
+                "TV" -> {
                     val bgColor: Color = colorResource(id = R.color.blue_200)
                     entries.add(
                         PieChartEntry(
@@ -86,7 +93,37 @@ fun GraphTabContainer() {
                     )
                 }
 
-                "Withdraw" -> {
+                "Utilities" -> {
+                    val bgColor: Color = colorResource(id = R.color.teal_200)
+                    entries.add(
+                        PieChartEntry(
+                            bgColor,
+                            ((tran.amount!! / totalTransAmount)).toFloat()
+                        )
+                    )
+                }
+
+                "Airtime" -> {
+                    val bgColor: Color = Color.Gray
+                    entries.add(
+                        PieChartEntry(
+                            bgColor,
+                            ((tran.amount!! / totalTransAmount)).toFloat()
+                        )
+                    )
+                }
+
+                "Internet" -> {
+                    val bgColor: Color = colorResource(id = R.color.black)
+                    entries.add(
+                        PieChartEntry(
+                            bgColor,
+                            ((tran.amount!! / totalTransAmount)).toFloat()
+                        )
+                    )
+                }
+
+                "Mobile Money" -> {
                     val bgColor: Color = MaterialTheme.colors.primaryVariant
                     entries.add(
                         PieChartEntry(
@@ -109,7 +146,7 @@ fun GraphTabContainer() {
 
         ) {
             Text(
-                text = "Category:",
+                text = "Type:",
                 style = TextStyle(
                     color = Color.Black,
                     fontSize = 16.sp
@@ -133,7 +170,7 @@ fun GraphTabContainer() {
                         ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded)
                     },
                     placeholder = {
-                        Text(text = "Select Category")
+                        Text(text = "Select Type")
                     },
                     colors = ExposedDropdownMenuDefaults.textFieldColors(
                         textColor = colorResource(id = R.color.black),
@@ -158,7 +195,7 @@ fun GraphTabContainer() {
                 ) {
                     val categories = mutableListOf<String>()
                     fullTransactionList.forEach {
-                        categories.add(it.category!!)
+                        categories.add(it.type!!)
                     }
                     val uniqueDates = categories.toSet().toList()
                     uniqueDates.forEach { option ->
@@ -179,8 +216,41 @@ fun GraphTabContainer() {
         Box(contentAlignment = Alignment.TopCenter, modifier = Modifier.fillMaxWidth()) {
             DataPieChart(entries)
         }
+        val pairsList = mutableMapOf<Any, Float>()
+        selectedList.forEach {
+            val cat = mutableStateOf("")
+            when (it.category) {
+                "Mobile Money" -> {
+                    cat.value = "MM"
+                }
+
+                "Airtime" -> {
+                    cat.value = "AT"
+                }
+
+                "Utilities" -> {
+                    cat.value = "Util"
+                }
+
+                else -> {
+                    cat.value = it.category!!
+                }
+            }
+            pairsList[cat.value] = it.amount!!.toFloat()
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+        CustomDivider()
+        Spacer(modifier = Modifier.height(10.dp))
+        BarChartGraph(
+            data = pairsList,
+            height = 250.dp,
+            isExpanded = showChart,
+            bottomEndRadius = 30.dp,
+            bottomStartRadius = 30.dp
+        ) {
+            showChart = !showChart
+        }
         Spacer(modifier = Modifier.height(80.dp))
     }
 
 }
-

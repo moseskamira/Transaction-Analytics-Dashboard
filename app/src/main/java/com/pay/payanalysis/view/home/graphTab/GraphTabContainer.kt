@@ -1,5 +1,6 @@
 package com.pay.payanalysis.view.home.graphTab
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,6 +34,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pay.payanalysis.R
@@ -41,7 +43,10 @@ import com.pay.payanalysis.repository.TransactionRepository
 import com.pay.payanalysis.view.reUsable.CustomDivider
 import com.pay.payanalysis.viewModel.TransactionViewModel
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
+@OptIn(
+    ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class,
+    ExperimentalAnimationApi::class
+)
 @Composable
 fun GraphTabContainer() {
     Column(
@@ -62,10 +67,13 @@ fun GraphTabContainer() {
         var selectedCategory by remember {
             mutableStateOf("")
         }
+        var showChart by remember {
+            mutableStateOf(true)
+        }
         val myStatement = transactionViewModel.getStatement(LocalContext.current)
         fullTransactionList.addAll(myStatement.customer!!.account!!.transactions)
         for (txn in fullTransactionList) {
-            if (txn.category!!.contains(selectedCategory)) {
+            if (txn.type!!.contains(selectedCategory)) {
                 selectedList.add(txn)
             }
         }
@@ -109,7 +117,7 @@ fun GraphTabContainer() {
 
         ) {
             Text(
-                text = "Category:",
+                text = "Type:",
                 style = TextStyle(
                     color = Color.Black,
                     fontSize = 16.sp
@@ -133,7 +141,7 @@ fun GraphTabContainer() {
                         ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded)
                     },
                     placeholder = {
-                        Text(text = "Select Category")
+                        Text(text = "Select Type")
                     },
                     colors = ExposedDropdownMenuDefaults.textFieldColors(
                         textColor = colorResource(id = R.color.black),
@@ -158,7 +166,7 @@ fun GraphTabContainer() {
                 ) {
                     val categories = mutableListOf<String>()
                     fullTransactionList.forEach {
-                        categories.add(it.category!!)
+                        categories.add(it.type!!)
                     }
                     val uniqueDates = categories.toSet().toList()
                     uniqueDates.forEach { option ->
@@ -176,11 +184,28 @@ fun GraphTabContainer() {
             }
 
         }
-        Box(contentAlignment = Alignment.TopCenter, modifier = Modifier.fillMaxWidth()) {
-            DataPieChart(entries)
+//        Box(contentAlignment = Alignment.TopCenter, modifier = Modifier.fillMaxWidth()) {
+//            DataPieChart(entries)
+//        }
+        val pairsList = mutableMapOf<Any, Float>()
+        selectedList.forEach {
+            pairsList[it.category!!] = it.amount!!.toFloat()
+        }
+        BarChartGraph(
+            data = pairsList,
+            height = 250.dp,
+            isExpanded = showChart,
+            bottomEndRadius = 30.dp,
+            bottomStartRadius = 30.dp
+        ) {
+            showChart = !showChart
         }
         Spacer(modifier = Modifier.height(80.dp))
     }
 
 }
 
+@Composable
+fun Greeting(name: String) {
+    Text(text = "Hello $name!")
+}

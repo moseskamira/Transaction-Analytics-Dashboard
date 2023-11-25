@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import com.pay.payanalysis.view.home.analytics.AnalyticsContainer
+import com.pay.payanalysis.view.home.graph.GraphTabContainer
 import com.pay.payanalysis.view.home.reportTab.ReportTabContainer
 
 
@@ -29,7 +29,7 @@ import com.pay.payanalysis.view.home.reportTab.ReportTabContainer
 @Composable
 fun HomeScreenTabScreen() {
     var tabIndex by remember { mutableIntStateOf(0) }
-    val tabs = listOf("Report", "Analytics", "Transactions")
+    val tabs = listOf("Report", "Graphs", "Transactions")
     val firstName = remember {
         mutableStateOf("")
     }
@@ -46,9 +46,8 @@ fun HomeScreenTabScreen() {
             }
         }
         when (tabIndex) {
-            1 -> AnalyticsContainer()
             0 -> ReportTabContainer()
-
+            1 -> GraphTabContainer()
             2 -> Column() {
                 Text(
                     text = tabIndex.toString(),

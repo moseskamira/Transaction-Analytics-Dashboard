@@ -1,4 +1,4 @@
-package com.pay.payanalysis.view.home.graph
+package com.pay.payanalysis.view.home.graphTab
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

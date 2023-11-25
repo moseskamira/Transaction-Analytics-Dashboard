@@ -1,4 +1,4 @@
-package com.pay.payanalysis.view.home.graph
+package com.pay.payanalysis.view.home.graphTab
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

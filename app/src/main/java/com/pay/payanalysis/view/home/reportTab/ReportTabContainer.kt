@@ -262,26 +262,41 @@ fun ReportTabContainer() {
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold
         )
-        Row {
-            var totalAmount = 0.0
+        CustomDivider()
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            var depositTotalAmount = 0.0
+            var withdrawalTotal = 0.0
             selectedList.forEach {
-                totalAmount += it.amount!!
+                if (it.type == "Deposit") {
+                    depositTotalAmount += it.amount!!
+                } else {
+                    withdrawalTotal += it.amount!!
+                }
+
             }
             Text(
                 text = "Count: (${selectedList.size})",
                 fontSize = 18.sp,
-                modifier = Modifier.padding(vertical = 10.dp),
                 color = colorResource(id = R.color.blue_200),
                 fontWeight = FontWeight.Bold
             )
             Spacer(modifier = Modifier.weight(1f))
-            Text(
-                text = "Total: UGX $totalAmount",
-                fontSize = 18.sp,
-                modifier = Modifier.padding(vertical = 10.dp),
-                color = colorResource(id = R.color.blue_200),
-                fontWeight = FontWeight.Bold
-            )
+            Column {
+                if (depositTotalAmount != 0.0)
+                    Text(
+                        text = "Deposit: UGX $depositTotalAmount",
+                        fontSize = 18.sp,
+                        color = colorResource(id = R.color.blue_200),
+                        fontWeight = FontWeight.Bold
+                    )
+                if (withdrawalTotal != 0.0)
+                    Text(
+                        text = "Withdraw: UGX $withdrawalTotal",
+                        fontSize = 18.sp,
+                        color = colorResource(id = R.color.blue_200),
+                        fontWeight = FontWeight.Bold
+                    )
+            }
         }
         CustomDivider()
         StatementReport(transList = selectedList)

@@ -217,26 +217,45 @@ fun GraphTabContainer() {
             DataPieChart(entries)
         }
         val pairsList = mutableMapOf<Any, Float>()
+        var airtimeTotal = 0.0
+        var mobileMoneyTotal = 0.0
+        var tvTotal = 0.0
+        var utilTotal = 0.0
+        var internetTotal = 0.0
         selectedList.forEach {
             val cat = mutableStateOf("")
             when (it.category) {
                 "Mobile Money" -> {
                     cat.value = "MM"
+                    mobileMoneyTotal += it.amount!!
+                    pairsList[cat.value] = mobileMoneyTotal.toFloat()
                 }
 
                 "Airtime" -> {
                     cat.value = "AT"
+                    airtimeTotal += it.amount!!
+                    pairsList[cat.value] = airtimeTotal.toFloat()
                 }
 
                 "Utilities" -> {
                     cat.value = "Util"
+                    utilTotal += it.amount!!
+                    pairsList[cat.value] = utilTotal.toFloat()
+                }
+
+                "Internet" -> {
+                    cat.value = "Internet"
+                    internetTotal += it.amount!!
+                    pairsList[cat.value] = internetTotal.toFloat()
                 }
 
                 else -> {
                     cat.value = it.category!!
+                    tvTotal += it.amount!!
+                    pairsList[cat.value] = tvTotal.toFloat()
                 }
             }
-            pairsList[cat.value] = it.amount!!.toFloat()
+
         }
         Spacer(modifier = Modifier.height(10.dp))
         CustomDivider()

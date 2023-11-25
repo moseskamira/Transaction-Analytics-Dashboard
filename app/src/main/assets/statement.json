@@ -188,7 +188,7 @@
         {
           "date": "2023-10-01 9:32",
           "type": "Deposit",
-          "amount": 2000.00,
+          "amount": 20000.00,
           "service": "MTN Mobile Money",
           "category": "Mobile Money"
         },
@@ -216,7 +216,7 @@
         {
           "date": "2023-10-01 9:44",
           "type": "Withdraw",
-          "amount": 12000.00,
+          "amount": 10000.00,
           "service": "MTN Mobile Money",
           "category": "Mobile Money"
         },
@@ -230,7 +230,7 @@
         {
           "date": "2023-10-01 9:51",
           "type": "Deposit",
-          "amount": 2000.00,
+          "amount": 50000.00,
           "service": "Airtel Money",
           "category": "Mobile Money"
         },
@@ -244,7 +244,7 @@
         {
           "date": "2023-10-01 9:57",
           "type": "Withdraw",
-          "amount": 250000.00,
+          "amount": 50000.00,
           "service": "Airtel Money",
           "category": "Mobile Money"
         },
@@ -258,7 +258,7 @@
         {
           "date": "2023-10-01 9:59",
           "type": "Deposit",
-          "amount": 10000.00,
+          "amount": 670000.00,
           "service": "MTN Mobile Money",
           "category": "Mobile Money"
         },

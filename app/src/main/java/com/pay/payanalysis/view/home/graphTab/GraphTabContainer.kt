@@ -34,7 +34,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pay.payanalysis.R
@@ -81,10 +80,10 @@ fun GraphTabContainer() {
         for (trans in selectedList) {
             totalTransAmount += (trans.amount!!).toDouble()
         }
-        val sortedList = selectedList.sortedBy { it.type }
+        val sortedList = selectedList.sortedBy { it.category }
         for (tran in sortedList) {
-            when (tran.type) {
-                "Deposit" -> {
+            when (tran.category) {
+                "TV" -> {
                     val bgColor: Color = colorResource(id = R.color.blue_200)
                     entries.add(
                         PieChartEntry(
@@ -94,7 +93,37 @@ fun GraphTabContainer() {
                     )
                 }
 
-                "Withdraw" -> {
+                "Utilities" -> {
+                    val bgColor: Color = colorResource(id = R.color.teal_200)
+                    entries.add(
+                        PieChartEntry(
+                            bgColor,
+                            ((tran.amount!! / totalTransAmount)).toFloat()
+                        )
+                    )
+                }
+
+                "Airtime" -> {
+                    val bgColor: Color = Color.Gray
+                    entries.add(
+                        PieChartEntry(
+                            bgColor,
+                            ((tran.amount!! / totalTransAmount)).toFloat()
+                        )
+                    )
+                }
+
+                "Internet" -> {
+                    val bgColor: Color = colorResource(id = R.color.black)
+                    entries.add(
+                        PieChartEntry(
+                            bgColor,
+                            ((tran.amount!! / totalTransAmount)).toFloat()
+                        )
+                    )
+                }
+
+                "Mobile Money" -> {
                     val bgColor: Color = MaterialTheme.colors.primaryVariant
                     entries.add(
                         PieChartEntry(
@@ -184,13 +213,34 @@ fun GraphTabContainer() {
             }
 
         }
-//        Box(contentAlignment = Alignment.TopCenter, modifier = Modifier.fillMaxWidth()) {
-//            DataPieChart(entries)
-//        }
+        Box(contentAlignment = Alignment.TopCenter, modifier = Modifier.fillMaxWidth()) {
+            DataPieChart(entries)
+        }
         val pairsList = mutableMapOf<Any, Float>()
         selectedList.forEach {
-            pairsList[it.category!!] = it.amount!!.toFloat()
+            val cat = mutableStateOf("")
+            when (it.category) {
+                "Mobile Money" -> {
+                    cat.value = "MM"
+                }
+
+                "Airtime" -> {
+                    cat.value = "AT"
+                }
+
+                "Utilities" -> {
+                    cat.value = "Util"
+                }
+
+                else -> {
+                    cat.value = it.category!!
+                }
+            }
+            pairsList[cat.value] = it.amount!!.toFloat()
         }
+        Spacer(modifier = Modifier.height(10.dp))
+        CustomDivider()
+        Spacer(modifier = Modifier.height(10.dp))
         BarChartGraph(
             data = pairsList,
             height = 250.dp,
@@ -203,9 +253,4 @@ fun GraphTabContainer() {
         Spacer(modifier = Modifier.height(80.dp))
     }
 
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
 }

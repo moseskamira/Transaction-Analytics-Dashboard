@@ -53,33 +53,27 @@ fun BarChartGraph(
     closeIcon: ImageVector = Icons.Default.KeyboardArrowUp,
     onCloseListener: () -> Unit
 ) {
-
-
     val shape = RoundedCornerShape(
         topStart = topStartRadius,
         topEnd = topEndRadius,
         bottomEnd = bottomEndRadius,
         bottomStart = bottomStartRadius
     )
-
-
     var screenSize by remember {
         mutableStateOf(Size.Zero)
     }
-
     var chosenBar by remember {
         mutableStateOf(-1)
     }
     var chosenBarKey by remember {
         mutableStateOf("")
     }
-
     val cardHeight by animateDpAsState(
         targetValue = if (isExpanded) height else 50.dp,
         animationSpec = tween(
             1000,
             easing = LinearOutSlowInEasing
-        )
+        ), label = ""
     )
 
     val rotate by animateFloatAsState(
@@ -87,14 +81,12 @@ fun BarChartGraph(
         animationSpec = tween(
             700,
             easing = LinearOutSlowInEasing
-        )
+        ), label = ""
     )
-
     LaunchedEffect(chosenBar) {
         delay(3000)
         chosenBarKey = ""
     }
-
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -107,7 +99,6 @@ fun BarChartGraph(
             )
             .animateContentSize()
     ) {
-
         IconButton(onClick = onCloseListener) {
             Icon(
                 imageVector = closeIcon,

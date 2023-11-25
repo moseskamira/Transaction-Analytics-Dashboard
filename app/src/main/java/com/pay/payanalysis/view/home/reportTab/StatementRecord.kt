@@ -1,4 +1,4 @@
-package com.pay.payanalysis.view.home.transactioRreport
+package com.pay.payanalysis.view.home.reportTab
 
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Row

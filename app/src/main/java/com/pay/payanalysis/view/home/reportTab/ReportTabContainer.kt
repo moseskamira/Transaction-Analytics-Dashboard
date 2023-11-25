@@ -1,4 +1,4 @@
-package com.pay.payanalysis.view.home.transactioRreport
+package com.pay.payanalysis.view.home.reportTab
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -33,7 +33,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pay.payanalysis.R
@@ -44,7 +43,7 @@ import com.pay.payanalysis.viewModel.TransactionViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
-fun ReportContainer() {
+fun ReportTabContainer() {
     Column(
         horizontalAlignment = Alignment.Start,
         modifier = Modifier
@@ -70,42 +69,45 @@ fun ReportContainer() {
             mutableStateOf("")
         }
         val filterGroupList = mutableListOf("TYPE", "AMOUNT", "CATEGORY")
-        val myStatement = transactionViewModel.getStatement(LocalContext.current);
+        val myStatement = transactionViewModel.getStatement(LocalContext.current)
         fullTransactionList.addAll(myStatement.customer!!.account!!.transactions)
         for (txn in fullTransactionList) {
-            if (filterGroup == "CATEGORY") {
-                if (txn.category!!.contains(filterType)) {
-                    selectedList.add(txn)
+            when (filterGroup) {
+                "CATEGORY" -> {
+                    if (txn.category!!.contains(filterType)) {
+                        selectedList.add(txn)
+                    }
                 }
 
-            } else if (filterGroup == "AMOUNT") {
-                if (txn.amount.toString() == filterType) {
-                    selectedList.add(txn)
+                "AMOUNT" -> {
+                    if (txn.amount.toString() == filterType) {
+                        selectedList.add(txn)
+                    }
                 }
 
-            } else if (filterGroup == "TYPE") {
-                if (txn.type!!.contains(filterType)) {
-                    selectedList.add(txn)
+                "TYPE" -> {
+                    if (txn.type!!.contains(filterType)) {
+                        selectedList.add(txn)
+                    }
                 }
 
-            } else {
-                selectedList.clear()
-                if (txn.date!!.contains(filterType)) {
-                    selectedList.add(txn)
+                else -> {
+                    selectedList.clear()
+                    if (txn.date!!.contains(filterType)) {
+                        selectedList.add(txn)
+                    }
                 }
-
             }
-
         }
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(horizontal = 8.dp),
 
             ) {
             Text(
-                text = "FILTER GROUP:  ",
+                text = "FILTER:",
                 style = TextStyle(
                     color = Color.Black,
                     fontSize = 16.sp
@@ -165,18 +167,16 @@ fun ReportContainer() {
                     }
                 }
             }
-
         }
-        Spacer(modifier = Modifier.height(20.dp))
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(horizontal = 8.dp),
 
             ) {
             Text(
-                text = "SUB FILTER:  ",
+                text = "SUB FILTER:",
                 style = TextStyle(
                     color = Color.Black,
                     fontSize = 16.sp
@@ -225,12 +225,18 @@ fun ReportContainer() {
                 ) {
                     val dropDownList = mutableListOf<String>()
                     fullTransactionList.forEach {
-                        if (filterGroup == "CATEGORY") {
-                            dropDownList.add(it.category!!)
-                        } else if (filterGroup == "AMOUNT") {
-                            dropDownList.add(it.amount.toString())
-                        } else if (filterGroup == "TYPE") {
-                            dropDownList.add(it.type!!)
+                        when (filterGroup) {
+                            "CATEGORY" -> {
+                                dropDownList.add(it.category!!)
+                            }
+
+                            "AMOUNT" -> {
+                                dropDownList.add(it.amount.toString())
+                            }
+
+                            "TYPE" -> {
+                                dropDownList.add(it.type!!)
+                            }
                         }
                     }
                     val uniqueDates = dropDownList.toSet().toList()
@@ -247,9 +253,7 @@ fun ReportContainer() {
                     }
                 }
             }
-
         }
-        Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = "TRANSACTION REPORT AS TO SELECTED FILTER",
             fontSize = 18.sp,
@@ -279,10 +283,10 @@ fun ReportContainer() {
                 fontWeight = FontWeight.Bold
             )
         }
-
         CustomDivider()
         StatementReport(transList = selectedList)
         Spacer(modifier = Modifier.height(80.dp))
+
     }
 }
 

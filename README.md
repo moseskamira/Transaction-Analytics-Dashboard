@@ -21,9 +21,10 @@ To setup the project in your machine:
 - Clone the repo
 
 ```console
-foo@bar:~$ git clone git@github.com:moseskamira/Transaction-Analytics-Dashboard.git
+
+git clone https://github.com/moseskamira/Transaction-Analytics-Dashboard.git
 ```
-- CD into the repo and install the dependencies
+- CD into the repo
 
 ```console
 foo@bar:~$ cd Transaction-Analytics-Dashboard

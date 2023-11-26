@@ -26,7 +26,6 @@ fun StatementReport(transList: List<Transactions>) {
                     thickness = 1.dp,
                     color = colorResource(id = R.color.black),
                     modifier = Modifier.padding(bottom = 20.dp)
-
                 )
             }
         }

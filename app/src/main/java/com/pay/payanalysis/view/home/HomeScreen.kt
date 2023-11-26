@@ -13,46 +13,48 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.pay.payanalysis.R
 import com.pay.payanalysis.ui.theme.PayAnalysisTheme
+import com.pay.payanalysis.ui.theme.Typography
 import com.pay.payanalysis.view.reUsable.CustomDivider
 
 @Composable
 fun HomeScreen() {
     PayAnalysisTheme {
-        Column(
-            modifier = Modifier
-                .background(color = colorResource(id = R.color.blue_200))
-                .fillMaxSize()
-                .padding(top = 40.dp)
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clip(shape = RoundedCornerShape(topEnd = 40.dp, topStart = 40.dp))
-                    .background(color = Color.White)
-                    .padding(20.dp),
-            ) {
-                WelcomeNameCard()
-                CustomDivider()
-                Text(
-                    text = "TRANSACTIONS ANALYTICS DASHBOARD",
-                    style = TextStyle(
-                        color = Color.Black,
-                        fontSize = 24.sp,
-                        textAlign = TextAlign.Center
-                    )
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                HomeScreenTabScreen()
-
-            }
-        }
-
+        ShowHomeScreen()
     }
 }
 
+@Composable
+@Preview
+fun ShowHomeScreen() {
+    Column(
+        modifier = Modifier
+            .background(color = colorResource(id = R.color.blue_200))
+            .fillMaxSize()
+            .padding(top = 40.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .clip(shape = RoundedCornerShape(topEnd = 40.dp, topStart = 40.dp))
+                .background(color = Color.White)
+                .padding(20.dp),
+        ) {
+            WelcomeNameCard()
+            CustomDivider()
+            Text(
+                text = "TRANSACTIONS ANALYTICS DASHBOARD",
+                style = Typography.titleLarge,
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            HomeScreenTabScreen()
+
+        }
+    }
+
+}

@@ -8,8 +8,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.pay.payanalysis.model.Transactions
+import com.pay.payanalysis.ui.theme.Typography
 
 @Composable
 fun StatementRecord(item: Transactions) {
@@ -19,28 +19,28 @@ fun StatementRecord(item: Transactions) {
     ) {
         Text(
             text = item.date!!,
-            fontSize = 20.sp,
-            modifier = Modifier.padding(vertical = 10.dp)
+            modifier = Modifier.padding(vertical = 10.dp),
+            style = Typography.bodyLarge
         )
         Text(
             text = item.type!!,
-            fontSize = 20.sp,
-            modifier = Modifier.padding(10.dp)
+            modifier = Modifier.padding(vertical = 10.dp, horizontal = 5.dp),
+            style = Typography.bodyLarge
         )
         Text(
             text = item.amount!!.toString(),
-            fontSize = 20.sp,
-            modifier = Modifier.padding(10.dp)
+            modifier = Modifier.padding(vertical = 10.dp, horizontal = 5.dp),
+            style = Typography.bodyLarge
         )
         Text(
             text = item.service!!,
-            fontSize = 20.sp,
-            modifier = Modifier.padding(10.dp)
+            modifier = Modifier.padding(vertical = 10.dp, horizontal = 5.dp),
+            style = Typography.bodyLarge
         )
         Text(
             text = item.category!!,
-            fontSize = 20.sp,
-            modifier = Modifier.padding(vertical = 10.dp)
+            modifier = Modifier.padding(vertical = 10.dp),
+            style = Typography.bodyLarge
         )
     }
 }

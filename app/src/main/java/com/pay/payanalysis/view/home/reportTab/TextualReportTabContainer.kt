@@ -1,6 +1,7 @@
 package com.pay.payanalysis.view.home.reportTab
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,7 +17,6 @@ import androidx.compose.material.TextField
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -30,14 +30,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.pay.payanalysis.R
 import com.pay.payanalysis.model.Transactions
 import com.pay.payanalysis.repository.TransactionRepository
+import com.pay.payanalysis.ui.theme.Typography
 import com.pay.payanalysis.view.reUsable.CustomDivider
 import com.pay.payanalysis.viewModel.TransactionViewModel
 
@@ -45,7 +44,7 @@ import com.pay.payanalysis.viewModel.TransactionViewModel
 @Composable
 fun TextualReportTabContainer() {
     Column(
-        horizontalAlignment = Alignment.Start,
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .padding(top = 40.dp)
             .verticalScroll(rememberScrollState())
@@ -62,43 +61,50 @@ fun TextualReportTabContainer() {
         var isGroupExpanded by remember {
             mutableStateOf(false)
         }
-        var filterGroup by remember {
+        var filter by remember {
             mutableStateOf("")
         }
-        var filterType by remember {
+        var subFilter by remember {
             mutableStateOf("")
         }
-        val filterGroupList = mutableListOf("TYPE", "AMOUNT", "CATEGORY")
+        val filterGroupList = mutableListOf("Type", "Amount", "Category")
         val myStatement = transactionViewModel.getStatement(LocalContext.current)
         fullTransactionList.addAll(myStatement.customer!!.account!!.transactions)
         for (txn in fullTransactionList) {
-            when (filterGroup) {
-                "CATEGORY" -> {
-                    if (txn.category!!.contains(filterType)) {
+            when (filter) {
+                "Category" -> {
+                    if (txn.category!!.contains(subFilter)) {
                         selectedList.add(txn)
                     }
                 }
 
-                "AMOUNT" -> {
-                    if (txn.amount.toString() == filterType) {
+                "Amount" -> {
+                    if (txn.amount.toString() == subFilter) {
                         selectedList.add(txn)
                     }
                 }
 
-                "TYPE" -> {
-                    if (txn.type!!.contains(filterType)) {
+                "Type" -> {
+                    if (txn.type!!.contains(subFilter)) {
                         selectedList.add(txn)
                     }
                 }
 
                 else -> {
                     selectedList.clear()
-                    if (txn.date!!.contains(filterType)) {
+                    if (txn.date!!.contains(subFilter)) {
                         selectedList.add(txn)
                     }
                 }
             }
         }
+        Text(
+            text = "TEXTUAL TRANSACTION REPORT",
+            style = Typography.titleMedium,
+            textAlign = TextAlign.Center,
+            color = colorResource(id = R.color.blue_200),
+        )
+        Spacer(modifier = Modifier.height(10.dp))
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
@@ -108,10 +114,7 @@ fun TextualReportTabContainer() {
             ) {
             Text(
                 text = "FILTER:",
-                style = TextStyle(
-                    color = Color.Black,
-                    fontSize = 16.sp
-                ),
+                style = Typography.bodyLarge,
                 modifier = Modifier.weight(1f)
             )
             ExposedDropdownMenuBox(
@@ -124,14 +127,18 @@ fun TextualReportTabContainer() {
                     .weight(2f)
             ) {
                 TextField(
-                    value = filterGroup,
+                    value = filter.uppercase(),
                     onValueChange = {},
                     readOnly = true,
                     trailingIcon = {
                         ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded)
                     },
                     placeholder = {
-                        Text(text = "Select Filter Group", textAlign = TextAlign.Start)
+                        Text(
+                            text = "SELECT FILTER",
+                            textAlign = TextAlign.Start,
+                            style = Typography.bodyLarge,
+                        )
                     },
                     colors = ExposedDropdownMenuDefaults.textFieldColors(
                         textColor = colorResource(id = R.color.black),
@@ -142,7 +149,7 @@ fun TextualReportTabContainer() {
                         unfocusedIndicatorColor = Color.Transparent,
                     ),
                     modifier = Modifier.menuAnchor(),
-                    textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Start)
+                    textStyle = Typography.bodyLarge
                 )
                 ExposedDropdownMenu(
                     expanded = isGroupExpanded,
@@ -157,10 +164,10 @@ fun TextualReportTabContainer() {
                     filterGroupList.forEach { option ->
                         DropdownMenuItem(
                             text = {
-                                Text(text = option)
+                                Text(text = option.uppercase(), style = Typography.bodyLarge)
                             },
                             onClick = {
-                                filterGroup = option
+                                filter = option
                                 isGroupExpanded = false
                             }
                         )
@@ -177,10 +184,7 @@ fun TextualReportTabContainer() {
             ) {
             Text(
                 text = "SUB FILTER:",
-                style = TextStyle(
-                    color = Color.Black,
-                    fontSize = 16.sp
-                ),
+                style = Typography.bodyLarge,
                 modifier = Modifier.weight(1f)
             )
             ExposedDropdownMenuBox(
@@ -193,14 +197,18 @@ fun TextualReportTabContainer() {
                     .weight(2f)
             ) {
                 TextField(
-                    value = filterType.uppercase(),
+                    value = subFilter.uppercase(),
                     onValueChange = {},
                     readOnly = true,
                     trailingIcon = {
                         ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded)
                     },
                     placeholder = {
-                        Text(text = "Select Sub Filter", textAlign = TextAlign.End)
+                        Text(
+                            text = "SELECT SUB FILTER",
+                            textAlign = TextAlign.Start,
+                            style = Typography.bodyLarge,
+                        )
                     },
                     colors = ExposedDropdownMenuDefaults.textFieldColors(
                         textColor = colorResource(id = R.color.black),
@@ -211,7 +219,7 @@ fun TextualReportTabContainer() {
                         unfocusedIndicatorColor = Color.Transparent,
                     ),
                     modifier = Modifier.menuAnchor(),
-                    textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Start)
+                    textStyle = Typography.bodyLarge
                 )
                 ExposedDropdownMenu(
                     expanded = isExpanded,
@@ -225,16 +233,16 @@ fun TextualReportTabContainer() {
                 ) {
                     val dropDownList = mutableListOf<String>()
                     fullTransactionList.forEach {
-                        when (filterGroup) {
-                            "CATEGORY" -> {
+                        when (filter) {
+                            "Category" -> {
                                 dropDownList.add(it.category!!)
                             }
 
-                            "AMOUNT" -> {
+                            "Amount" -> {
                                 dropDownList.add(it.amount.toString())
                             }
 
-                            "TYPE" -> {
+                            "Type" -> {
                                 dropDownList.add(it.type!!)
                             }
                         }
@@ -243,10 +251,10 @@ fun TextualReportTabContainer() {
                     uniqueDates.forEach { option ->
                         DropdownMenuItem(
                             text = {
-                                Text(text = option)
+                                Text(text = option.uppercase(), style = Typography.bodyLarge)
                             },
                             onClick = {
-                                filterType = option
+                                subFilter = option
                                 isExpanded = false
                             }
                         )
@@ -254,14 +262,6 @@ fun TextualReportTabContainer() {
                 }
             }
         }
-        Text(
-            text = "TRANSACTION REPORT AS TO SELECTED FILTER",
-            fontSize = 18.sp,
-            modifier = Modifier.padding(10.dp),
-            color = colorResource(id = R.color.blue_200),
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Bold
-        )
         CustomDivider()
         Row(verticalAlignment = Alignment.CenterVertically) {
             var depositTotalAmount = 0.0
@@ -276,25 +276,24 @@ fun TextualReportTabContainer() {
             }
             Text(
                 text = "Count: (${selectedList.size})",
-                fontSize = 18.sp,
-                color = colorResource(id = R.color.blue_200),
-                fontWeight = FontWeight.Bold
-            )
+                style = Typography.bodyLarge,
+                color = colorResource(id = R.color.black),
+
+                )
             Spacer(modifier = Modifier.weight(1f))
             Column {
                 if (depositTotalAmount != 0.0)
                     Text(
                         text = "Deposit: UGX $depositTotalAmount",
-                        fontSize = 18.sp,
-                        color = colorResource(id = R.color.blue_200),
-                        fontWeight = FontWeight.Bold
-                    )
+                        style = Typography.bodyLarge,
+                        color = colorResource(id = R.color.black),
+
+                        )
                 if (withdrawalTotal != 0.0)
                     Text(
                         text = "Withdraw: UGX $withdrawalTotal",
-                        fontSize = 18.sp,
-                        color = colorResource(id = R.color.blue_200),
-                        fontWeight = FontWeight.Bold
+                        style = Typography.bodyLarge,
+                        color = colorResource(id = R.color.black),
                     )
             }
         }

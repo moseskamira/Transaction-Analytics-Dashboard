@@ -12,7 +12,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ExposedDropdownMenuDefaults
-import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.TextField
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -30,13 +29,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.pay.payanalysis.R
 import com.pay.payanalysis.model.Transactions
 import com.pay.payanalysis.repository.TransactionRepository
+import com.pay.payanalysis.ui.theme.Typography
 import com.pay.payanalysis.view.reUsable.CustomDivider
 import com.pay.payanalysis.viewModel.TransactionViewModel
 
@@ -73,20 +71,37 @@ fun GraphicalReportTabContainer() {
                 selectedList.add(txn)
             }
         }
+        Text(
+            text = "GRAPHICAL TRANSACTION REPORT",
+            style = Typography.titleMedium,
+            textAlign = TextAlign.Center,
+            color = colorResource(id = R.color.blue_200),
+            modifier = Modifier.fillMaxWidth(),
+        )
+        Spacer(modifier = Modifier.height(10.dp))
         StatementSummary(customer = myStatement.customer!!)
         Spacer(modifier = Modifier.height(20.dp))
         Column {
             Text(
                 text = "KEY:",
-                style = TextStyle(
-                    color = colorResource(id = R.color.blue_200),
-                    fontSize = 16.sp,
-                    textAlign = TextAlign.Center
-                )
+                style = Typography.bodyLarge,
+                color = colorResource(id = R.color.blue_200),
             )
-            Text(text = "AT: Airtime")
-            Text(text = "MM: Mobile Money")
-            Text(text = "Util: Utilities")
+            Text(
+                text = "AT: Airtime",
+                style = Typography.bodyLarge,
+                color = colorResource(id = R.color.black)
+            )
+            Text(
+                text = "MM: Mobile Money",
+                style = Typography.bodyLarge,
+                color = colorResource(id = R.color.black)
+            )
+            Text(
+                text = "Util: Utilities",
+                style = Typography.bodyLarge,
+                color = colorResource(id = R.color.black)
+            )
 
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -98,10 +113,8 @@ fun GraphicalReportTabContainer() {
         ) {
             Text(
                 text = "Type:",
-                style = TextStyle(
-                    color = Color.Black,
-                    fontSize = 16.sp
-                ),
+                style = Typography.bodyLarge,
+                color = colorResource(id = R.color.black),
                 modifier = Modifier.weight(1f)
             )
             ExposedDropdownMenuBox(
@@ -132,7 +145,7 @@ fun GraphicalReportTabContainer() {
                         unfocusedIndicatorColor = Color.Transparent,
                     ),
                     modifier = Modifier.menuAnchor(),
-                    textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Start)
+                    textStyle = Typography.bodyLarge
                 )
                 ExposedDropdownMenu(
                     expanded = isExpanded,
@@ -152,7 +165,10 @@ fun GraphicalReportTabContainer() {
                     uniqueDates.forEach { option ->
                         DropdownMenuItem(
                             text = {
-                                Text(text = option)
+                                Text(
+                                    text = option.uppercase(), style = Typography.bodyLarge,
+                                    color = colorResource(id = R.color.black)
+                                )
                             },
                             onClick = {
                                 selectedType = option

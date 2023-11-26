@@ -98,7 +98,7 @@ fun BarChartGraph(
         IconButton(onClick = onCloseListener) {
             Icon(
                 imageVector = closeIcon,
-                contentDescription = "Close chart",
+                contentDescription = "Closing chart",
                 modifier = Modifier.rotate(rotate)
             )
         }

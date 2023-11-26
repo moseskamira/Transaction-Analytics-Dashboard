@@ -6,9 +6,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,16 +23,23 @@ fun WelcomeNameCard() {
         Text(
             text = "Welcome: ",
             style = TextStyle(
-                color = colorResource(id = R.color.blue_200),
+                fontFamily = FontFamily.Default,
+                fontWeight = FontWeight.Normal,
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
-            )
+                lineHeight = 24.sp,
+                letterSpacing = 0.5.sp,
+                color = colorResource(id = R.color.blue_200),
+            ),
         );Text(
         text = "Moses Kamira",
         style = TextStyle(
-            color = Color.Black,
+            fontFamily = FontFamily.Default,
+            fontWeight = FontWeight.Normal,
             fontSize = 16.sp,
-        )
+            lineHeight = 24.sp,
+            letterSpacing = 0.5.sp,
+            color = colorResource(id = R.color.black),
+        ),
     );
     }
 }

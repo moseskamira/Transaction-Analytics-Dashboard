@@ -12,7 +12,6 @@ This Project is intended for Interview Purposes at Payway.
 In order to be able to setup and run this application, the following need to be installed and setup
 
 - [Android Studio](https://developer.android.com/studio)
-- [VS Code](https://code.visualstudio.com/)
 
 ## Project Setup
 
@@ -24,6 +23,7 @@ To setup the project in your machine:
 
 git clone https://github.com/moseskamira/Transaction-Analytics-Dashboard.git
 ```
+
 - CD into the repo
 
 ```console

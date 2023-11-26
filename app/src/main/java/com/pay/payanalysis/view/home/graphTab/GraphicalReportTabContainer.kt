@@ -75,12 +75,26 @@ fun GraphicalReportTabContainer() {
         }
         StatementSummary(customer = myStatement.customer!!)
         Spacer(modifier = Modifier.height(20.dp))
+        Column {
+            Text(
+                text = "KEY:",
+                style = TextStyle(
+                    color = colorResource(id = R.color.blue_200),
+                    fontSize = 16.sp,
+                    textAlign = TextAlign.Center
+                )
+            )
+            Text(text = "AT: Airtime")
+            Text(text = "MM: Mobile Money")
+            Text(text = "Util: Utilities")
+
+        }
+        Spacer(modifier = Modifier.height(10.dp))
         CustomDivider()
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-
         ) {
             Text(
                 text = "Type:",
@@ -199,7 +213,8 @@ fun GraphicalReportTabContainer() {
         }
         Spacer(modifier = Modifier.height(10.dp))
         CustomDivider()
-        Spacer(modifier = Modifier.height(10.dp))
+
+        Spacer(modifier = Modifier.height(2.dp))
         BarChartGraph(
             data = pairsList,
             barColor = keyColorMap,

@@ -1,6 +1,5 @@
 package com.pay.payanalysis.view.home.graphTab
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,23 +13,6 @@ import com.pay.payanalysis.model.Customer
 
 @Composable
 fun StatementSummary(customer: Customer) {
-    Row(horizontalArrangement = Arrangement.Start) {
-        Text(
-            text = "Full Name: ",
-            style = TextStyle(
-                color = colorResource(id = R.color.blue_200),
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
-            )
-        )
-        Text(
-            text = "${customer.name}",
-            style = TextStyle(
-                color = Color.Black,
-                fontSize = 16.sp,
-            )
-        )
-    }
     Row {
         Text(
             text = "Age: ",

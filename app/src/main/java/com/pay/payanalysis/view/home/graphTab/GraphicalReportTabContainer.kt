@@ -2,7 +2,6 @@ package com.pay.payanalysis.view.home.graphTab
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,7 +13,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ExposedDropdownMenuDefaults
 import androidx.compose.material.LocalTextStyle
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TextField
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -47,7 +45,7 @@ import com.pay.payanalysis.viewModel.TransactionViewModel
     ExperimentalAnimationApi::class
 )
 @Composable
-fun GraphTabContainer() {
+fun GraphicalReportTabContainer() {
     Column(
         horizontalAlignment = Alignment.Start,
         modifier = Modifier
@@ -56,15 +54,14 @@ fun GraphTabContainer() {
     ) {
         val fullTransactionList: MutableList<Transactions> = ArrayList()
         val selectedList = mutableListOf<Transactions>()
-        val entries: MutableList<PieChartEntry> = mutableListOf()
         val transactionViewModel = TransactionViewModel(
             TransactionRepository()
         )
         var isExpanded by remember {
             mutableStateOf(false)
         }
-        var selectedCategory by remember {
-            mutableStateOf("")
+        var selectedType by remember {
+            mutableStateOf("Deposit")
         }
         var showChart by remember {
             mutableStateOf(true)
@@ -72,69 +69,9 @@ fun GraphTabContainer() {
         val myStatement = transactionViewModel.getStatement(LocalContext.current)
         fullTransactionList.addAll(myStatement.customer!!.account!!.transactions)
         for (txn in fullTransactionList) {
-            if (txn.type!!.contains(selectedCategory)) {
+            if (txn.type!!.contains(selectedType)) {
                 selectedList.add(txn)
             }
-        }
-        var totalTransAmount = 0.0
-        for (trans in selectedList) {
-            totalTransAmount += (trans.amount!!).toDouble()
-        }
-        val sortedList = selectedList.sortedBy { it.category }
-        for (tran in sortedList) {
-            when (tran.category) {
-                "TV" -> {
-                    val bgColor: Color = colorResource(id = R.color.blue_200)
-                    entries.add(
-                        PieChartEntry(
-                            bgColor,
-                            ((tran.amount!! / totalTransAmount)).toFloat()
-                        )
-                    )
-                }
-
-                "Utilities" -> {
-                    val bgColor: Color = colorResource(id = R.color.teal_200)
-                    entries.add(
-                        PieChartEntry(
-                            bgColor,
-                            ((tran.amount!! / totalTransAmount)).toFloat()
-                        )
-                    )
-                }
-
-                "Airtime" -> {
-                    val bgColor: Color = Color.Gray
-                    entries.add(
-                        PieChartEntry(
-                            bgColor,
-                            ((tran.amount!! / totalTransAmount)).toFloat()
-                        )
-                    )
-                }
-
-                "Internet" -> {
-                    val bgColor: Color = colorResource(id = R.color.black)
-                    entries.add(
-                        PieChartEntry(
-                            bgColor,
-                            ((tran.amount!! / totalTransAmount)).toFloat()
-                        )
-                    )
-                }
-
-                "Mobile Money" -> {
-                    val bgColor: Color = MaterialTheme.colors.primaryVariant
-                    entries.add(
-                        PieChartEntry(
-                            bgColor,
-                            ((tran.amount!! / totalTransAmount)).toFloat()
-                        )
-                    )
-
-                }
-            }
-
         }
         StatementSummary(customer = myStatement.customer!!)
         Spacer(modifier = Modifier.height(20.dp))
@@ -163,7 +100,7 @@ fun GraphTabContainer() {
                     .weight(2f)
             ) {
                 TextField(
-                    value = selectedCategory.uppercase(),
+                    value = selectedType.uppercase(),
                     onValueChange = {},
                     readOnly = true,
                     trailingIcon = {
@@ -204,7 +141,7 @@ fun GraphTabContainer() {
                                 Text(text = option)
                             },
                             onClick = {
-                                selectedCategory = option
+                                selectedType = option
                                 isExpanded = false
                             }
                         )
@@ -213,10 +150,8 @@ fun GraphTabContainer() {
             }
 
         }
-        Box(contentAlignment = Alignment.TopCenter, modifier = Modifier.fillMaxWidth()) {
-            DataPieChart(entries)
-        }
         val pairsList = mutableMapOf<Any, Float>()
+        val keyColorMap = mutableMapOf<Any, Color>()
         var airtimeTotal = 0.0
         var mobileMoneyTotal = 0.0
         var tvTotal = 0.0
@@ -228,30 +163,35 @@ fun GraphTabContainer() {
                 "Mobile Money" -> {
                     cat.value = "MM"
                     mobileMoneyTotal += it.amount!!
+                    keyColorMap[cat.value] = colorResource(id = R.color.blue_200)
                     pairsList[cat.value] = mobileMoneyTotal.toFloat()
                 }
 
                 "Airtime" -> {
                     cat.value = "AT"
                     airtimeTotal += it.amount!!
+                    keyColorMap[cat.value] = Color.Green
                     pairsList[cat.value] = airtimeTotal.toFloat()
                 }
 
                 "Utilities" -> {
                     cat.value = "Util"
                     utilTotal += it.amount!!
+                    keyColorMap[cat.value] = Color.Black
                     pairsList[cat.value] = utilTotal.toFloat()
                 }
 
                 "Internet" -> {
                     cat.value = "Internet"
                     internetTotal += it.amount!!
+                    keyColorMap[cat.value] = colorResource(id = R.color.teal_200)
                     pairsList[cat.value] = internetTotal.toFloat()
                 }
 
                 else -> {
                     cat.value = it.category!!
                     tvTotal += it.amount!!
+                    keyColorMap[cat.value] = Color.Yellow
                     pairsList[cat.value] = tvTotal.toFloat()
                 }
             }
@@ -262,10 +202,8 @@ fun GraphTabContainer() {
         Spacer(modifier = Modifier.height(10.dp))
         BarChartGraph(
             data = pairsList,
-            height = 250.dp,
+            barColor = keyColorMap,
             isExpanded = showChart,
-            bottomEndRadius = 30.dp,
-            bottomStartRadius = 30.dp
         ) {
             showChart = !showChart
         }

@@ -43,7 +43,7 @@ import com.pay.payanalysis.viewModel.TransactionViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
-fun ReportTabContainer() {
+fun TextualReportTabContainer() {
     Column(
         horizontalAlignment = Alignment.Start,
         modifier = Modifier

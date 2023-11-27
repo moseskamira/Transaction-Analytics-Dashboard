@@ -29,3 +29,16 @@ git clone https://github.com/moseskamira/Transaction-Analytics-Dashboard.git
 ```console
 foo@bar:~$ cd Transaction-Analytics-Dashboard
 ```
+## Screenshots
+
+### Textual Analysis
+
+![first.png](app%2Fsrc%2Fmain%2Fassets%2Fimages%2Ffirst.png)
+
+### Graphical Analysis
+
+![second.png](app%2Fsrc%2Fmain%2Fassets%2Fimages%2Fsecond.png)
+
+### GIF
+
+![pw.gif](app%2Fsrc%2Fmain%2Fassets%2Fimages%2Fpw.gif)
